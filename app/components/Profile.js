@@ -10,18 +10,22 @@ var Profile = React.createClass({
   mixins: [Router.State, ReactFireMixin],
   getInitialState: function(){
     return {
-      notes: ['note1', 'note2'],
+      notes: [],
       bio: {name: 'Edgar'},
       repos: [1,2,3]
     }
   },
   componentDidMount: function(){
-    this.ref = new Firebase('https://sizzling-heat-7707.firebaseio.com/');
+    this.ref = new Firebase('https://sizzling-heat-7707.firebaseio.com');
     var childRef = this.ref.child(this.getParams().username);
     this.bindAsArray(childRef, 'notes');
   },
   componentWillUnmount:function(){
     this.unbind('notes');
+  },
+  handleAddNote: function(newNote){
+    var targetUserData = this.ref.child(this.getParams().username);
+    var newChildRef = targetUserData.push(newNote);
   },
   render: function(){
     var username = this.getParams().username;
@@ -34,7 +38,10 @@ var Profile = React.createClass({
           <Repos username={username} repos={this.state.repos} />
         </div>
         <div className="col-md-4">
-          <Notes username={username} notes={this.state.notes} />
+          <Notes
+            username={username}
+            notes={this.state.notes}
+            addNote={this.handleAddNote} />
         </div>
       </div>
     )

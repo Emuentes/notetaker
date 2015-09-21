@@ -5,20 +5,30 @@ var UserProfile = require('./Github/UserProfile');
 var Notes = require('./Notes/Notes');
 var ReactFireMixin = require('reactFire');
 var Firebase = require('firebase');
+var helpers = require('../utils/helpers');
 
 var Profile = React.createClass({
   mixins: [Router.State, ReactFireMixin],
   getInitialState: function(){
     return {
       notes: [],
-      bio: {name: 'Edgar'},
-      repos: [1,2,3]
+      bio: {},
+      repos: []
     }
   },
   componentDidMount: function(){
     this.ref = new Firebase('https://sizzling-heat-7707.firebaseio.com');
     var childRef = this.ref.child(this.getParams().username);
     this.bindAsArray(childRef, 'notes');
+
+    helpers.getGithubInfo(this.getParams().username)
+      .then(function(dataObj){
+        console.log('dataObj', dataObj);
+        this.setState({
+          bio:dataObj.bio,
+          repos:dataObj.repos
+        });
+      }.bind(this));
   },
   componentWillUnmount:function(){
     this.unbind('notes');

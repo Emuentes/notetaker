@@ -23758,6 +23758,30 @@
 	    repos: React.PropTypes.array.isRequired
 	  },
 	  render: function render() {
+	    var repos = this.props.repos.map(function (repo, index) {
+	      return React.createElement(
+	        "li",
+	        { className: "list-group-item", key: index },
+	        repo.html_url && React.createElement(
+	          "h4",
+	          null,
+	          React.createElement(
+	            "a",
+	            { href: repo.html_url },
+	            " ",
+	            repo.name,
+	            " "
+	          )
+	        ),
+	        repo.description && React.createElement(
+	          "p",
+	          null,
+	          " ",
+	          repo.description,
+	          " "
+	        )
+	      );
+	    });
 	    return React.createElement(
 	      "div",
 	      null,
@@ -23769,7 +23793,7 @@
 	      React.createElement(
 	        "ul",
 	        { className: "list-group" },
-	        this.props.repos
+	        repos
 	      )
 	    );
 	  }
@@ -23781,12 +23805,12 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(1);
 
 	var UserProfile = React.createClass({
-	  displayName: 'UserProfile',
+	  displayName: "UserProfile",
 
 	  propTypes: {
 	    username: React.PropTypes.string.isRequired,
@@ -23794,15 +23818,81 @@
 	  },
 	  render: function render() {
 	    return React.createElement(
-	      'div',
+	      "div",
 	      null,
-	      'User Profiles',
-	      React.createElement('br', null),
-	      'Username: ',
-	      this.props.username,
-	      React.createElement('br', null),
-	      'bio: ',
-	      this.props.bio
+	      React.createElement(
+	        "h4",
+	        null,
+	        "User Profile"
+	      ),
+	      React.createElement(
+	        "ul",
+	        { className: "list-group" },
+	        this.props.bio.avatar_url && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          React.createElement("img", { src: this.props.bio.avatar_url, className: "img-rounded img-responsive" })
+	        ),
+	        this.props.bio.name && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          " ",
+	          this.props.bio.name
+	        ),
+	        this.props.bio.login && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          " ",
+	          this.props.bio.login
+	        ),
+	        this.props.bio.email && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          " ",
+	          this.props.bio.email
+	        ),
+	        this.props.bio.location && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          " ",
+	          this.props.bio.location
+	        ),
+	        this.props.bio.company && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          " ",
+	          this.props.bio.company
+	        ),
+	        this.props.bio.followers && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          "Followers: ",
+	          this.props.bio.followers
+	        ),
+	        this.props.bio.following && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          "Following: ",
+	          this.props.bio.following
+	        ),
+	        this.props.bio.following && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          "Public Repos: ",
+	          this.props.bio.public_repos
+	        ),
+	        this.props.bio.blog && React.createElement(
+	          "li",
+	          { className: "list-group-item" },
+	          "Blog: ",
+	          React.createElement(
+	            "a",
+	            { href: this.props.bio.blog },
+	            " ",
+	            this.props.bio.blog
+	          )
+	        )
+	      )
 	    );
 	  }
 	});

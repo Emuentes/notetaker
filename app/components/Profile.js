@@ -23,7 +23,6 @@ var Profile = React.createClass({
     helpers.getGithubInfo(this.getParams().username)
       .then(
         function(dataObj){
-          console.log('dataObj', dataObj);
           this.setState({
             bio:dataObj.bio,
             repos:dataObj.repos

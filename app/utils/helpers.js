@@ -11,13 +11,14 @@ function getUserInfo(username){
 var helpers = {
   getGithubInfo(username){
     return axios.all([getRepos(username), getUserInfo(username)])
-      .then(function(arr){
-        console.log("arr",arr);
-        return {
-          repos: arr[0].data,
-          bio: arr[1].data
+      .then(
+        (arr) => {
+          return {
+            repos: arr[0].data,
+            bio: arr[1].data
+          }
         }
-      });
+      );
   }
 };
 

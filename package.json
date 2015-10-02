@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.5.4",
+    "re-base": "^1.1.2",
     "react": "0.13.3",
     "react-router": "0.13.3",
     "reactfire": "^0.4.0"
